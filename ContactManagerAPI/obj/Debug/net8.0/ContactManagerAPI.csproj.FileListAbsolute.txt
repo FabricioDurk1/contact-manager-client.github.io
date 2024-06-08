@@ -34,3 +34,4 @@ C:\Users\fabri\OneDrive\Documents\WebF\my-app\ContactManagerAPI\obj\Debug\net8.0
 C:\Users\fabri\OneDrive\Documents\WebF\my-app\ContactManagerAPI\obj\Debug\net8.0\ContactManagerAPI.pdb
 C:\Users\fabri\OneDrive\Documents\WebF\my-app\ContactManagerAPI\obj\Debug\net8.0\ContactManagerAPI.genruntimeconfig.cache
 C:\Users\fabri\OneDrive\Documents\WebF\my-app\ContactManagerAPI\obj\Debug\net8.0\ref\ContactManagerAPI.dll
+C:\Users\fabri\OneDrive\Documents\WebF\my-app\ContactManagerAPI\obj\Debug\net8.0\ContactManagerAPI.sourcelink.json
