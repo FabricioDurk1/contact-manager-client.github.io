@@ -1,17 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/ContactForm.css';
 
-const ContactForm = ({ onSave }) => {
+const ContactForm = ({ onSave, editContact }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [id, setId] = useState(null);
+
+  useEffect(() => {
+    if (editContact) {
+      setName(editContact.name);
+      setEmail(editContact.email);
+      setPhone(editContact.phone);
+      setId(editContact.id);
+    } else {
+      setName('');
+      setEmail('');
+      setPhone('');
+      setId(null);
+    }
+  }, [editContact]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSave({ name, email, phone });
+    onSave({ id, name, email, phone });
     setName('');
     setEmail('');
     setPhone('');
+    setId(null);
   };
 
   return (

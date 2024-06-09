@@ -5,6 +5,7 @@ import '../styles/ContactList.css';
 
 const ContactList = () => {
     const [contacts, setContacts] = useState([]);
+    const [editContact, setEditContact] = useState(null);
 
     useEffect(() => {
         fetch('http://localhost:5143/api/contacts')
@@ -13,32 +14,33 @@ const ContactList = () => {
             .catch(error => console.error('Error fetching contacts:', error));
     }, []);
 
-    const addContact = (contact) => {
-        fetch('http://localhost:5143/api/contacts', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(contact)
-        })
-        .then(response => response.json())
-        .then(newContact => setContacts([...contacts, newContact]))
-        .catch(error => console.error('Error adding contact:', error));
-    };
-
-    const editContact = (contact) => {
-        fetch(`http://localhost:5143/api/contacts/${contact.id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(contact)
-        })
-        .then(response => response.json())
-        .then(updatedContact => {
-            setContacts(contacts.map(c => c.id === updatedContact.id ? updatedContact : c));
-        })
-        .catch(error => console.error('Error editing contact:', error));
+    const saveContact = (contact) => {
+        if (contact.id) {
+            fetch(`http://localhost:5143/api/contacts/${contact.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(contact)
+            })
+            .then(response => response.json())
+            .then(updatedContact => {
+                setContacts(contacts.map(c => c.id === updatedContact.id ? updatedContact : c));
+                setEditContact(null);
+            })
+            .catch(error => console.error('Error editing contact:', error));
+        } else {
+            fetch('http://localhost:5143/api/contacts', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(contact)
+            })
+            .then(response => response.json())
+            .then(newContact => setContacts([...contacts, newContact]))
+            .catch(error => console.error('Error adding contact:', error));
+        }
     };
 
     const deleteContact = (id) => {
@@ -51,11 +53,15 @@ const ContactList = () => {
         .catch(error => console.error('Error deleting contact:', error));
     };
 
+    const handleEdit = (contact) => {
+        setEditContact(contact);
+    };
+
     return (
         <div className="contact-list container">
-            <ContactForm onSave={addContact} />
+            <ContactForm onSave={saveContact} editContact={editContact} />
             {contacts.map(contact => (
-                <ContactItem key={contact.id} contact={contact} onEdit={editContact} onDelete={deleteContact} />
+                <ContactItem key={contact.id} contact={contact} onEdit={handleEdit} onDelete={deleteContact} />
             ))}
         </div>
     );
