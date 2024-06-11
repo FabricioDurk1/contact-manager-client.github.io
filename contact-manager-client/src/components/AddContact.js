@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { createContact } from '../services/contactService';
 
-const AddContact = () => {
+const AddContact = ({ onContactAdded }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -11,8 +11,8 @@ const AddContact = () => {
     e.preventDefault();
     try {
       const newContact = { name, email, phone };
-      await createContact(newContact);
-      alert('Contact added successfully');
+      const response = await createContact(newContact);
+      onContactAdded(response);
       setName('');
       setEmail('');
       setPhone('');
@@ -56,3 +56,4 @@ const AddContact = () => {
 };
 
 export default AddContact;
+
