@@ -1,13 +1,11 @@
-// services/contactService.js
-
 import axios from 'axios';
 
-// URL da API
+
 // const apiUrl = 'http://localhost:5000/api/contact';
 const apiUrl = 'http://localhost:7266/api/contact';
 
 
-// Função para obter todos os contatos
+
 const getContacts = async () => {
   try {
     const response = await axios.get(apiUrl);

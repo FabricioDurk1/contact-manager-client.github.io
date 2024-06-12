@@ -1,4 +1,3 @@
-// components/AddContact.js
 import React, { useState } from 'react';
 import { createContact } from '../services/contactService';
 

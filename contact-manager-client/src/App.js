@@ -6,7 +6,7 @@ import './App.css';
 
 const App = () => {
   const [contacts, setContacts] = useState([]);
-  const [editingContact, setEditingContact] = useState(null); // Utilize editingContact
+  const [editingContact, setEditingContact] = useState(null); 
 
   useEffect(() => {
     const fetchContacts = async () => {
